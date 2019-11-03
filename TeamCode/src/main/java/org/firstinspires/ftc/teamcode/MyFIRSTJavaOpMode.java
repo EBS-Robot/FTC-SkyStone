@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+
+//Written by Jeff
 @TeleOp
 public class MyFIRSTJavaOpMode extends LinearOpMode {
     private Gyroscope imu;
