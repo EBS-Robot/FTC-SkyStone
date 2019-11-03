@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 //created by Jeffrey_Moon 11/3/2019
 
-public class GamepadDrive extends OpMode {
+public class GamepadDriveOp extends OpMode {
 
     private DcMotor rightWheel;
     private DcMotor leftWheel;
