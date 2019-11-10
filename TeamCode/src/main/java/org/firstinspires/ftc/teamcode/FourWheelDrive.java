@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //created by Jeffrey_Moon 11/3/2019
 
 
-@TeleOp(name="Basic: FourWheelDrive OpMode", group="Iterative Opmode")
-@Disabled
+@TeleOp
+
 public class FourWheelDrive extends OpMode {
 
     private DcMotor rightWheel_1 = null, leftWheel_1 = null, rightWheel_2 = null, leftWheel_2 = null;
@@ -20,11 +20,14 @@ public class FourWheelDrive extends OpMode {
     private double speedAdjust = 7;
 
     @Override
+
     public void init() {
-        leftWheel_1 = hardwareMap.dcMotor.get("left_wheel_1");
-        rightWheel_1 = hardwareMap.dcMotor.get("right_wheel_1");
-        leftWheel_2 = hardwareMap.dcMotor.get("left_wheel_2");
-        rightWheel_2 = hardwareMap.dcMotor.get("right_wheel_2");
+        telemetry.addData("Status", "Initialized");
+
+        leftWheel_1 = hardwareMap.dcMotor.get("leftWheel_1");
+        rightWheel_1 = hardwareMap.dcMotor.get("rightWheel_1");
+        leftWheel_2 = hardwareMap.dcMotor.get("leftWheel_2");
+        rightWheel_2 = hardwareMap.dcMotor.get("rightWheel_2");
 
         //Claw = hardwareMap.servo.get ("Claw");
 
@@ -32,8 +35,12 @@ public class FourWheelDrive extends OpMode {
         rightWheel_2.setDirection(DcMotor.Direction.REVERSE);
         leftWheel_1.setDirection(DcMotor.Direction.FORWARD);
         leftWheel_2.setDirection(DcMotor.Direction.FORWARD);
-    }
 
+        telemetry.addData("Status", "Initialized");
+    }
+    @Override
+    public void init_loop() {
+    }
     @Override
     public void loop() {
         leftWheel_1.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) * (-speedAdjust / 10));
