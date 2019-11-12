@@ -34,10 +34,10 @@ public class FederTest extends LinearOpMode {
 
             double rightStick_Y = -gamepad1.right_stick_y;
             double rightStick_X = -gamepad1.right_stick_x;
+            boolean rightStick = gamepad1.right_stick_button;
 
             double leftStick_Y = -gamepad1.left_stick_y;
             double leftStick_X = -gamepad1.left_stick_x;
-
 
             boolean bumper_Right = gamepad1.right_bumper;
             boolean bumper_Left = gamepad1.left_bumper;
@@ -49,27 +49,40 @@ public class FederTest extends LinearOpMode {
                 leftWheelBack.setPower(0);
                 leftWheelFront.setPower(0);
             }
-            else if(rightStick_X > 0 && rightStick_Y == 0){
+            else if(rightStick_X > 0 && rightStick_Y == 0 && !rightStick){
                 rightWheelBack.setPower(-rightStick_X);
                 rightWheelFront.setPower(rightStick_X);
                 leftWheelBack.setPower(rightStick_X);
                 leftWheelFront.setPower(-rightStick_X);
             }
-            else if(rightStick_X < 0 && rightStick_Y == 0){
+            else if(rightStick_X < 0 && rightStick_Y == 0 && !rightStick){
                 rightWheelBack.setPower(-rightStick_X);
                 rightWheelFront.setPower(rightStick_X);
                 leftWheelBack.setPower(rightStick_X);
                 leftWheelFront.setPower(-rightStick_X);
             }
-            else if(rightStick_X == 0 && rightStick_Y != 0) {
+            else if(rightStick_X == 0 && rightStick_Y != 0 && !rightStick) {
                 rightWheelBack.setPower(rightStick_Y);
                 rightWheelFront.setPower(rightStick_Y);
                 leftWheelBack.setPower(rightStick_Y);
                 leftWheelFront.setPower(rightStick_Y);
             }
-            else if(rightStick_X > 0 && rightStick_Y > 0){
-                rightWheelFront.setPower(rightStick_X);
-                leftWheelBack.setPower(rightStick_X);
+            else if(rightStick_X > 0 && rightStick_Y > 0 && rightStick){
+                rightWheelFront.setPower(1);
+                leftWheelBack.setPower(1);
+            }
+            else if(rightStick_X > 0 && rightStick_Y < 0 && rightStick){
+                rightWheelBack.setPower(-1);
+                leftWheelFront.setPower(-1);
+            }
+            else if(rightStick_X < 0 && rightStick_Y > 0 && rightStick){
+                rightWheelBack.setPower(1);
+                leftWheelFront.setPower(1);
+            }
+            else if(rightStick_X < 0 && rightStick_Y < 0 && rightStick){
+
+                rightWheelFront.setPower(-1);
+                leftWheelBack.setPower(-1);
             }
             else if(leftStick_X !=0){
                 rightWheelBack.setPower(leftStick_X);
