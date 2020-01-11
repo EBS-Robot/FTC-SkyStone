@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.Servo;
         (name = "FourWheelDrive", group = "Run")
 public class FourWheelDrive extends LinearOpMode {
 
-    private DcMotor rightWheel_1 = null, leftWheel_1 = null, rightWheel_2 = null, leftWheel_2 = null, elevator = null;
+    private DcMotor rightWheel_1 = null, leftWheel_1 = null, rightWheel_2 = null, leftWheel_2 = null, elevator1 = null, elevator2 = null;
     private Servo Claw;
 
 //rightWheel_2 and leftWheel_1 is A type. rightWheel_1 and leftWheel_2 is B type.
@@ -29,12 +29,14 @@ public class FourWheelDrive extends LinearOpMode {
         rightWheel_1 = hardwareMap.dcMotor.get("rightWheel_1");
         leftWheel_2 = hardwareMap.dcMotor.get("leftWheel_2");
         rightWheel_2 = hardwareMap.dcMotor.get("rightWheel_2");
-        elevator = hardwareMap.dcMotor.get("elevator");
+        elevator1 = hardwareMap.dcMotor.get("elevator_right");
+        elevator2 = hardwareMap.dcMotor.get("elevator_left");
         Claw = hardwareMap.servo.get("Claw");
 
         rightWheel_1.setDirection(DcMotor.Direction.FORWARD);
         rightWheel_2.setDirection(DcMotor.Direction.FORWARD);
-        elevator.setDirection(DcMotor.Direction.FORWARD);
+        elevator1.setDirection(DcMotor.Direction.REVERSE);
+        elevator2.setDirection(DcMotor.Direction.FORWARD);
         leftWheel_1.setDirection(DcMotor.Direction.REVERSE);
         leftWheel_2.setDirection(DcMotor.Direction.REVERSE);
         Claw.setPosition(Servo.MIN_POSITION);
@@ -52,10 +54,10 @@ public class FourWheelDrive extends LinearOpMode {
             boolean rightBumper = gamepad1.right_bumper;
             float leftTrigger = gamepad1.left_trigger;
             boolean leftBumper = gamepad1.left_bumper;
-            boolean lift = gamepad2.y;
-            boolean drop = gamepad2.a;
-            boolean closeClaw = gamepad2.x;
-            boolean openClaw = gamepad2.b;
+            boolean lift = gamepad1.y;
+            boolean drop = gamepad1.a;
+            boolean closeClaw = gamepad1.x;
+            boolean openClaw = gamepad1.b;
 
             double leftStick_Y = -gamepad1.left_stick_y;
             double leftStick_X = -gamepad1.left_stick_x;
@@ -96,16 +98,26 @@ public class FourWheelDrive extends LinearOpMode {
                 rightWheel_1.setPower(leftStick_X);
                 leftWheel_2.setPower(-leftStick_X);
                 leftWheel_1.setPower(-leftStick_X);
-            } else if (lift == true) {
-                elevator.setPower(1);
+            }
+
+            if (lift == true) {
+                elevator1.setPower(1);
+                elevator2.setPower(1);
             } else if (drop == true) {
-                elevator.setPower(-1);
-            } else if (closeClaw == true) {
+                elevator1.setPower(-1);
+                elevator2.setPower(-1);
+            } else {
+                elevator1.setPower(0);
+                elevator2.setPower(0);
+            }
+            if (closeClaw == true) {
                 Claw.setPosition(Servo.MIN_POSITION);
             } else if (openClaw == true) {
                 Claw.setPosition(Servo.MAX_POSITION);
             }
+
         }
+
 
 
     }}
