@@ -43,7 +43,7 @@ public class FederTest extends LinearOpMode {
             boolean bumper_Left = gamepad1.left_bumper;
 
 
-            if(rightStick_X == 0 && rightStick_Y == 0 && leftStick_X == 0 && rightStick_Y == 0){
+            if(rightStick_X == 0 && rightStick_Y == 0 && leftStick_X == 0 && leftStick_Y == 0){
                 rightWheelBack.setPower(0);
                 rightWheelFront.setPower(0);
                 leftWheelBack.setPower(0);
@@ -67,19 +67,23 @@ public class FederTest extends LinearOpMode {
                 leftWheelBack.setPower(rightStick_Y);
                 leftWheelFront.setPower(rightStick_Y);
             }
-            else if(rightStick_X > 0 && rightStick_Y > 0 && rightStick){
+            else if (bumper_Right) {
                 rightWheelFront.setPower(1);
                 leftWheelBack.setPower(1);
             }
-            else if(rightStick_X > 0 && rightStick_Y < 0 && rightStick){
+            else if(rightStick_X > 0 && leftStick_Y > 0 && rightStick){
+                rightWheelFront.setPower(1);
+                leftWheelBack.setPower(1);
+            }
+            else if(rightStick_X > 0 && leftStick_Y < 0 && rightStick){
                 rightWheelBack.setPower(-1);
                 leftWheelFront.setPower(-1);
             }
-            else if(rightStick_X < 0 && rightStick_Y > 0 && rightStick){
+            else if(rightStick_X < 0 && leftStick_Y > 0 && rightStick){
                 rightWheelBack.setPower(1);
                 leftWheelFront.setPower(1);
             }
-            else if(rightStick_X < 0 && rightStick_Y < 0 && rightStick){
+            else if(rightStick_X < 0 && leftStick_Y < 0 && rightStick){
 
                 rightWheelFront.setPower(-1);
                 leftWheelBack.setPower(-1);
