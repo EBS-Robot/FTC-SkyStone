@@ -1,21 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 //created by Jeffrey_Moon 11/3/2019
-//Paul's team
+//Kevin's team
 
 @TeleOp
         (name = "FourWheelDrive", group = "Run")
-public class FourWheelDrive extends LinearOpMode {
+public class FourWheelDriveKevin extends LinearOpMode {
 
-    private DcMotor rightWheel_1 = null, leftWheel_1 = null, rightWheel_2 = null, leftWheel_2 = null, elevator1 = null, elevator2 = null;
-    private Servo Claw;
+    private DcMotor rightWheel_1 = null, leftWheel_1 = null, rightWheel_2 = null, leftWheel_2 = null, push = null, rise = null;
+    private Servo leftClaw, rightClaw;
 
 //rightWheel_2 and leftWheel_1 is A type. rightWheel_1 and leftWheel_2 is B type.
 
@@ -29,17 +27,19 @@ public class FourWheelDrive extends LinearOpMode {
         rightWheel_1 = hardwareMap.dcMotor.get("rightWheel_1");
         leftWheel_2 = hardwareMap.dcMotor.get("leftWheel_2");
         rightWheel_2 = hardwareMap.dcMotor.get("rightWheel_2");
-        elevator1 = hardwareMap.dcMotor.get("elevator_right");
-        elevator2 = hardwareMap.dcMotor.get("elevator_left");
-        Claw = hardwareMap.servo.get("Claw");
+        push = hardwareMap.dcMotor.get("push");
+        rise = hardwareMap.dcMotor.get("rise");
+        leftClaw = hardwareMap.servo.get("leftClaw");
+        rightClaw = hardwareMap.servo.get("rightClaw");
 
         rightWheel_1.setDirection(DcMotor.Direction.FORWARD);
         rightWheel_2.setDirection(DcMotor.Direction.FORWARD);
-        elevator1.setDirection(DcMotor.Direction.REVERSE);
-        elevator2.setDirection(DcMotor.Direction.FORWARD);
+        push.setDirection(DcMotor.Direction.FORWARD);
+        rise.setDirection(DcMotor.Direction.FORWARD);
         leftWheel_1.setDirection(DcMotor.Direction.REVERSE);
         leftWheel_2.setDirection(DcMotor.Direction.REVERSE);
-        Claw.setPosition(Servo.MIN_POSITION);
+        leftClaw.setPosition(Servo.MAX_POSITION);
+        rightClaw.setPosition(Servo.MAX_POSITION);
 
         telemetry.addData("Status", "Initialized");
 
@@ -56,8 +56,10 @@ public class FourWheelDrive extends LinearOpMode {
             boolean leftBumper = gamepad1.left_bumper;
             boolean lift = gamepad1.y;
             boolean drop = gamepad1.a;
-            boolean closeClaw = gamepad1.x;
-            boolean openClaw = gamepad1.b;
+            boolean closeClaw = gamepad1.b;
+            boolean openClaw = gamepad1.x;
+            boolean pushFront = gamepad1.dpad_up;
+            boolean pushBack = gamepad1.dpad_down;
 
             double leftStick_Y = -gamepad1.left_stick_y;
             double leftStick_X = -gamepad1.left_stick_x;
@@ -101,19 +103,25 @@ public class FourWheelDrive extends LinearOpMode {
             }
 
             if (lift == true) {
-                elevator1.setPower(1);
-                elevator2.setPower(1);
+                rise.setPower(1);
             } else if (drop == true) {
-                elevator1.setPower(-1);
-                elevator2.setPower(-1);
+                rise.setPower(-1);
             } else {
-                elevator1.setPower(0);
-                elevator2.setPower(0);
+                rise.setPower(0);
             }
             if (closeClaw == true) {
-                Claw.setPosition(Servo.MIN_POSITION);
+                leftClaw.setPosition(Servo.MIN_POSITION);
+                rightClaw.setPosition(Servo.MIN_POSITION);
             } else if (openClaw == true) {
-                Claw.setPosition(Servo.MAX_POSITION);
+                leftClaw.setPosition(Servo.MAX_POSITION);
+                rightClaw.setPosition(Servo.MAX_POSITION);
+            }
+            if (pushFront == true) {
+                push.setPower(1);
+            } else if (pushBack == true) {
+                push.setPower(-1);
+            } else {
+                push.setPower(0);
             }
 
         }
